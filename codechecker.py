@@ -41,25 +41,24 @@ leetcode_submission_url = f"https://leetcode.com/problems/{problem_name}/submit/
 language = "python3"
 headers = {
     "Origin": "https://leetcode.com",
-    "X-Requested-With": "XMLHttpRequest",
     "content-type": "application/json",
     "X-CSRFToken": leetcode_csrf_token,
     "Referer": leetcode_submission_url,
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0",
+    # "Cookie": f"csrftoken={leetcode_csrf_token};LEETCODE_SESSION={leetcode_session_token}",
 }
 cookies = {
     "csrftoken": leetcode_csrf_token,
     "LEETCODE_SESSION": leetcode_session_token,
 }
 body = {"question_id": str(question_id), "lang": language, "typed_code": code}
-print(body, cookies)
 
 # send request
 submit = requests.post(
     leetcode_submission_url, headers=headers, data=body, cookies=cookies
 )
 
-print(submit)
+print(submit.status_code)
 
 # get from submit url response
 submission_id = ""
